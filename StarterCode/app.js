@@ -4,12 +4,12 @@ d3.json("samples.json").then((sampleData) => {
     console.log(example);
     var sortData = example.sort((a, b) => b.sample_values - a.sample_values)[0];
     console.log(sortData);
-    var slicedValues = sortData.sample_values.slice(0, 10);
+    var slicedValues = sortData.sample_values.slice(0, 10).reverse();
     console.log(slicedValues);
-    var slicedLabels = sortData.otu_ids.slice(0,10);
+    var slicedLabels = sortData.otu_ids.slice(0,10).reverse();
     slicedLabels = slicedLabels.map(label => "OTU " + label)
     console.log(slicedLabels);
-    var slicedHover = sortData.otu_labels.slice(0,10);
+    var slicedHover = sortData.otu_labels.slice(0,10).reverse();
     console.log(slicedHover)
     var trace = {
         x: slicedValues,
