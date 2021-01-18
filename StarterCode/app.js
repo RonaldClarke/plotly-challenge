@@ -20,7 +20,7 @@ d3.json("samples.json").then((sampleData) => {
     };
     var data = [trace];
     var layout = {
-        title: "Tp 10 OUT for Individual",
+        title: "Top 10 OUT for Individual",
         margin: {
             l: 100,
             r: 100,
@@ -29,4 +29,14 @@ d3.json("samples.json").then((sampleData) => {
           }           
     };
     Plotly.newPlot("bar", data, layout);
+
+    var trace1 = {
+        x: slicedLabels,
+        y: slicedValues,
+        mode: 'markers',
+        marker: {
+            color: 
+            size: slicedValues
+        }
+      };
 });
