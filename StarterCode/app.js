@@ -1,13 +1,14 @@
 d3.json("samples.json").then((sampleData) => {
-    console.log(sampleData.samples)
-    var example = sampleData.samples.filter(s => s.id === "940");
-    console.log(example);
+    //console.log(sampleData.samples)
+    var example = sampleData.samples.filter(sam => sam.id === "940");
+    console.log(example[0]);
+    var sample = example[0];
     var sortData = example.sort((a, b) => b.sample_values - a.sample_values)[0];
     console.log(sortData);
     var slicedValues = sortData.sample_values.slice(0, 10).reverse();
     console.log(slicedValues);
-    var slicedLabels = sortData.otu_ids.slice(0,10).reverse();
-    slicedLabels = slicedLabels.map(label => "OTU " + label)
+    var slicedOTU = sortData.otu_ids.slice(0,10).reverse();
+    var slicedLabels = slicedOTU.map(label => "OTU " + label)
     console.log(slicedLabels);
     var slicedHover = sortData.otu_labels.slice(0,10).reverse();
     console.log(slicedHover)
@@ -31,12 +32,21 @@ d3.json("samples.json").then((sampleData) => {
     Plotly.newPlot("bar", data, layout);
 
     var trace1 = {
-        x: slicedLabels,
-        y: slicedValues,
+        x: sample.otu_ids,
+        y: sample.sample_values,
         mode: 'markers',
         marker: {
-            color: 
-            size: slicedValues
-        }
-      };
+            color: sample.otu_ids,
+            size: sample.sample_values,
+        },    
+        text: sample.otu_labels
+    };
+    data1 = [trace1];
+    layout1 = {
+        title: "Bubble Chart of Sample",
+        xaxis: {title: "OTU ID"},
+        height: 600,
+        width: 1100
+    }
+    Plotly.newPlot("bubble", data1, layout1);
 });
