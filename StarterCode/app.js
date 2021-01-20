@@ -52,8 +52,11 @@ d3.json("samples.json").then((sampleData) => {
 });
 d3.json("samples.json").then((data) => {
     var metaData = data.metadata;
-    var selection = data.metadata.filter(sam => sam.id === "940");
-    var tableData = selection[0];
-    console.log(metaData);
+    var selection = metaData.filter(sam => sam.id === 940)[0];
+    console.log(selection);
     var demoTable = d3.select("#sample-metadata");
+    Object.entries(selection).forEach(([key, value]) => {
+        console.log(key, value);
+        demoTable.append("h5").text(key + ": " + value)
+    })
 });
