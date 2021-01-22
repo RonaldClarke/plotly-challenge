@@ -60,3 +60,8 @@ d3.json("samples.json").then((data) => {
         demoTable.append("h5").text(key + ": " + value)
     })
 });
+d3.json("samples.json").then((data) => {
+    var dropdown = d3.select("#selDataset");
+    console.log(data)
+    data.names.forEach(name => dropdown.append("option").text(name).property("value"));
+});
