@@ -2,17 +2,17 @@
     d3.json("samples.json").then((sampleData) => {
         //console.log(sampleData.samples)
         var example = sampleData.samples.filter(sam => sam.id === TSid);
-        console.log(example[0]);
+        //console.log(example[0]);
         var sample = example[0];
         var sortData = example.sort((a, b) => b.sample_values - a.sample_values)[0];
-        console.log(sortData);
+        //console.log(sortData);
         var slicedValues = sortData.sample_values.slice(0, 10).reverse();
-        console.log(slicedValues);
+        //console.log(slicedValues);
         var slicedOTU = sortData.otu_ids.slice(0,10).reverse();
         var slicedLabels = slicedOTU.map(label => "OTU " + label)
-        console.log(slicedLabels);
+        //console.log(slicedLabels);
         var slicedHover = sortData.otu_labels.slice(0,10).reverse();
-        console.log(slicedHover)
+        //console.log(slicedHover)
         var trace = {
             x: slicedValues,
             y: slicedLabels,
@@ -52,16 +52,17 @@
         Plotly.newPlot("bubble", data1, layout1);
 
 
-        var wFreq = sampleData.metadata.map(d => d.wfreq);
-        console.log(wFreq)
+        var wFreq = sampleData.metadata.filter(sam => sam.id.toString() === TSid).map(sam => sam.wfreq);
+        //console.log(wFreq)
         var data2 = [
             {
                 domain: { x: [0, 1], y: [0, 1] },
-                value: wFreq,
+                value: parseFloat(wFreq),
                 title: { text: "Wash Frequency" },
                 type: "indicator",
                 mode: "gauge+number",
                 gauge: { axis: { range: [null, 9] },
+                bar: { color: "black"},
                 steps: [
                  { range: [0, 1], color: "blue" },
                  { range: [1, 2], color: "dodgerblue" },
@@ -90,18 +91,18 @@
     d3.json("samples.json").then((data) => {
         var metaData = data.metadata;
         var selection = metaData.filter(sam => sam.id.toString() === TSid)[0];
-        console.log(metaData);
+        //console.log(metaData);
         var demoTable = d3.select("#sample-metadata");
         demoTable.html("");
         Object.entries(selection).forEach(([key, value]) => {
-            console.log(key, value);
+            //console.log(key, value);
             demoTable.append("h5").text(key + ": " + value)
         })
     });
  }
 d3.json("samples.json").then((data) => {
     var dropdown = d3.select("#selDataset");
-    console.log(data)
+    //console.log(data)
     data.names.forEach(name => dropdown.append("option").text(name).property("value"));
     getCharts(data.names[0])
     getMeta(data.names[0])
