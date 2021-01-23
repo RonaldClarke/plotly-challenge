@@ -51,13 +51,28 @@
         }
         Plotly.newPlot("bubble", data1, layout1);
 
+
+        var wFreq = sampleData.metadata.map(d => d.wfreq);
+        console.log(wFreq)
         var data2 = [
             {
                 domain: { x: [0, 1], y: [0, 1] },
-                value: 270,
-                title: { text: "Speed" },
+                value: wFreq,
+                title: { text: "Wash Frequency" },
                 type: "indicator",
-                mode: "gauge+number"
+                mode: "gauge+number",
+                gauge: { axis: { range: [null, 9] },
+                steps: [
+                 { range: [0, 1], color: "blue" },
+                 { range: [1, 2], color: "dodgerblue" },
+                 { range: [2, 3], color: "powderblue" },
+                 { range: [3, 4], color: "palegreen" },
+                 { range: [4, 5], color: "lightgreen" },
+                 { range: [5, 6], color: "springgreen" },
+                 { range: [6, 7], color: "lime" },
+                 { range: [7, 8], color: "limegreen" },
+                 { range: [8, 9], color: "darkgreen" },
+               ]}
             }
         ];
         
@@ -68,7 +83,7 @@
                 t: 0, 
                 b: 0 } 
             };
-        Plotly.newPlot('gaug', data2, layout2);
+        Plotly.newPlot('gauge', data2, layout2);
     });
  }
  function getMeta(TSid) {
